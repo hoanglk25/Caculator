@@ -31,6 +31,7 @@
 - (IBAction)clear:(UIButton*)sender {
     text = @"0";
     value = 0;
+    isTyping = NO;
     self.displayLabel.text = text;
 
 }
@@ -52,7 +53,7 @@
     operator = nil;
     value = result;
     isTyping = NO;
-    self.displayLabel.text = [NSString stringWithFormat:@"%f", result];
+    self.displayLabel.text = [NSString stringWithFormat:@"%.2f", result];
 }
 
 - (IBAction)operation:(UIButton*)sender {
