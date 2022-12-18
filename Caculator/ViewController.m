@@ -10,10 +10,10 @@
 @interface ViewController ()
 
 {
-    NSString *_text;
-    NSString *_operator;
-    NSInteger _value;
-    BOOL _isTyping;
+    NSString *text;
+    NSString *operator;
+    float value;
+    BOOL isTyping;
 }
 
 @end
@@ -23,56 +23,55 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _text = self.displayLabel.text;
-    _isTyping = NO;
+    text = self.displayLabel.text;
+    isTyping = NO;
     
 }
 
 - (IBAction)clear:(UIButton*)sender {
-    _text = @"0";
-    _value = 0;
-    self.displayLabel.text = _text;
+    text = @"0";
+    value = 0;
+    self.displayLabel.text = text;
 
 }
 
 - (IBAction)equal:(UIButton*)sender {
-    NSInteger result = 0;
+    float result = 0;
     
-    if ([_operator isEqualToString:@"+"]) {
-        result = _value + [_text integerValue];
-    } else if ([_operator isEqualToString:@"-"]) {
-        result = _value - [_text integerValue];
-    } else if ([_operator isEqualToString:@"x"]) {
-        result = _value * [_text integerValue];
-    } else if ([_operator isEqualToString:@"/"]) {
-        result = _value / [_text integerValue];
-    } else  if ([_operator isEqualToString:@"%"]) {
-        result = _value / 100;
+    if ([operator isEqualToString:@"+"]) {
+        result = value + [text floatValue];
+    } else if ([operator isEqualToString:@"-"]) {
+        result = value - [text floatValue];
+    } else if ([operator isEqualToString:@"x"]) {
+        result = value * [text floatValue];
+    } else if ([operator isEqualToString:@"/"]) {
+        result = value / [text floatValue];
+    } else  if ([operator isEqualToString:@"%"]) {
+        result = value / 100;
     }
-    _operator = nil;
-    _value = result;
-    _isTyping = NO;
-    self.displayLabel.text = [NSString stringWithFormat:@"%ld", (long)result];
+    operator = nil;
+    value = result;
+    isTyping = NO;
+    self.displayLabel.text = [NSString stringWithFormat:@"%f", result];
 }
 
 - (IBAction)operation:(UIButton*)sender {
-    if (!_operator) {
-        _operator = sender.titleLabel.text;
-        _isTyping = NO;
+    if (!operator) {
+        operator = sender.titleLabel.text;
+        isTyping = NO;
     }
-    if (!_value) {
-        _value = [_text integerValue];
-        self.displayLabel.text = _text;
+    if (!value) {
+        value = [text floatValue];
     }
 
 }
 
 - (IBAction)numbers:(UIButton*)sender {
-    if (!_isTyping) {
-        _text = @"";
-        _isTyping = YES;
+    if (!isTyping) {
+        text = @"";
+        isTyping = YES;
     }
-    _text = [_text stringByAppendingString: sender.titleLabel.text];
-    self.displayLabel.text = _text;
+    text = [text stringByAppendingString: sender.titleLabel.text];
+    self.displayLabel.text = text;
 }
 @end
